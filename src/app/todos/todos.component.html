@@ -1,0 +1,5 @@
+<p *ngIf="todos.pending">Loading Todo...</p>
+<app-todo [todo]="todo" *ngFor="let todo of todos.data"></app-todo>
+
+<p *ngIf="todos.error">{{todos.error}}</p>
+

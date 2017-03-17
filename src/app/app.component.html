@@ -1,3 +1,5 @@
-<h1>
-  {{title}}
-</h1>
+<h1>{{title | uppercase}}</h1>
+
+<app-add-todo (add)="addTodo($event)"></app-add-todo>
+
+<app-todos [todos]="todos | async"></app-todos>

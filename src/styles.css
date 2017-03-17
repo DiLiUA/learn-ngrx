@@ -1,1 +1,12 @@
-/* You can add global styles to this file, and also import other style files */
+.todo-item {
+  display: block;
+  cursor: pointer;
+}
+
+.todo-item input {
+  display: none;
+}
+
+.todo-item.completed {
+  text-decoration: line-through;
+}

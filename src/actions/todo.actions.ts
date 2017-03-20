@@ -6,9 +6,20 @@ export function getTodos() {
   }
 }
 
-export function addTodo(data) {
+export function addTodo(title) {
   return {
     type: ActionsEnums.TODO.ADD_TODO,
-    data
+    payload: {
+      title
+    }
+  }
+}
+
+export function toggleDone(id) {
+  return {
+    type: ActionsEnums.TODO.TOGGLE_DONE,
+    payload: {
+      id
+    },
   }
 }

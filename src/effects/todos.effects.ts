@@ -16,4 +16,17 @@ export class TodosEffects {
         .map(todos => ({type: ActionsEnums.TODO.GET_TODOS_SUCCESS, payload: todos}))
         .catch(() => Observable.of({type: ActionsEnums.TODO.GET_TODOS_ERROR})));
 
+  @Effect() addTodo$ = this.actions$
+    .ofType(ActionsEnums.TODO.ADD_TODO)
+    .switchMap(action =>
+      this.todosService.addTodo(action.payload.title)
+        .map(todo => ({type: ActionsEnums.TODO.ADD_TODO_SUCCESS, payload: todo}))
+        .catch(() => Observable.of({type: ActionsEnums.TODO.ADD_TODO_ERROR})));
+
+  @Effect() toggleDone$ = this.actions$
+    .ofType(ActionsEnums.TODO.TOGGLE_DONE)
+    .switchMap(action =>
+      this.todosService.toggleDone(action.payload.id)
+        .map(todo => ({type: ActionsEnums.TODO.TOGGLE_DONE_SUCCESS, payload: todo}))
+        .catch(() => Observable.of({type: ActionsEnums.TODO.TOGGLE_DONE_ERROR})));
 }

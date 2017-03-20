@@ -1,17 +1,17 @@
-import { Component } from '@angular/core';
-import {Store} from "../../node_modules/@ngrx/store/src/store";
-import {Observable} from "../../node_modules/rxjs/Observable";
-import {getTodos, addTodo, toggleDone} from "../actions/todo.actions";
-import {TodosEffects} from "../effects/todos.effects";
-import { ActionsEnums } from '../enums/actions.enum'
-import {TodosService} from "../servises/todos.servise";
+import {Component} from "../../../node_modules/@angular/core/src/metadata/directives";
+import {Observable} from "../../../node_modules/rxjs/Observable";
+import {Store} from "../../../node_modules/@ngrx/store/src/store";
+import {TodosEffects} from "../../effects/todos.effects";
+import {TodosService} from "../../servises/todos.servise";
+import {getTodos, addTodo, toggleDone} from "../../actions/todo.actions";
+import {ActionsEnums} from "../../enums/actions.enum";
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  selector: 'app-todos-page',
+  templateUrl: './todos-page.component.html'
 })
-export class AppComponent {
+
+export class TodosPageComponent {
   title: string = 'todo list';
   todos: Observable<any>;
   filters;

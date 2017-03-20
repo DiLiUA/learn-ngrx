@@ -8,5 +8,4 @@ import {ChangeDetectionStrategy} from "../../../node_modules/@angular/core/src/c
 })
 export class TodosComponent {
   @Input() todos;
-
 }

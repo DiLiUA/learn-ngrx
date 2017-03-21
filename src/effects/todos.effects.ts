@@ -3,16 +3,18 @@ import { Actions, Effect } from "@ngrx/effects";
 import { Observable } from "rxjs";
 import { TodosService } from "../servises/todos.servise";
 import { ActionsEnums } from '../enums/actions.enum'
+import {Store} from "../../node_modules/@ngrx/store/src/store";
 
 
 @Injectable()
 export class TodosEffects {
-  constructor(private actions$: Actions, private todosService: TodosService) { }
+  constructor(private actions$: Actions, private todosService: TodosService, private store: Store<any>) { }
 
   @Effect() getTodos$ = this.actions$
     .ofType(ActionsEnums.TODO.GET_TODOS)
-    .switchMap(action =>
-      this.todosService.getTodos()
+    .withLatestFrom(this.store.select("visibilityFilter"), ( action, filter ) => filter)
+    .switchMap(filter =>
+      this.todosService.getTodos(filter)
         .map(todos => ({type: ActionsEnums.TODO.GET_TODOS_SUCCESS, payload: todos}))
         .catch(() => Observable.of({type: ActionsEnums.TODO.GET_TODOS_ERROR})));
 

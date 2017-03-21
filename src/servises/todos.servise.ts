@@ -8,8 +8,8 @@ export class TodosService{
 
   public toggleDoneTodo = new EventEmitter();
 
-  getTodos() {
-    return Observable.timer(1000).mapTo(this.todos);
+  getTodos(filter) {
+    return Observable.timer(1000).mapTo(this.getVisibleTodos(this.todos, filter));
   }
 
   addTodo (title) {
@@ -19,6 +19,16 @@ export class TodosService{
 
   toggleDone(id) {
     return Observable.timer(500).mapTo(id);
+  }
+
+  getVisibleTodos( todos, filter ) {
+    if( filter === "SHOW_ALL" ) {
+      return todos;
+    } else if( filter === "SHOW_COMPLETED" ) {
+      return todos.filter(t => t.completed);
+    } else {
+      return todos.filter(t => !t.completed);
+    }
   }
 
 }

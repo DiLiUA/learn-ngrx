@@ -1,5 +1,3 @@
-import { ActionReducer, Action } from '@ngrx/store';
-
 import { ActionsEnums } from '../enums/actions.enum'
 
 const initialState = {

@@ -2,5 +2,9 @@
 
 <app-add-todo (add)="addTodo($event)" [reset]="addTodoSuccess$ | async"></app-add-todo>
 
-<app-filters [filters]="filters"></app-filters>
+<app-filters  [filters]="filters"
+              [active]="activeFilter | async"
+              (changeFilter)="changeFilter($event)">
+</app-filters>
+
 <app-todos [todos]="todos | async"></app-todos>

@@ -5,6 +5,7 @@ import {TodosEffects} from "../../effects/todos.effects";
 import {TodosService} from "../../servises/todos.servise";
 import {getTodos, addTodo, toggleDone} from "../../actions/todo.actions";
 import {ActionsEnums} from "../../enums/actions.enum";
+import {setVisibilityFilter} from "../../actions/visibility-filter.actions";
 
 @Component({
   selector: 'app-todos-page',
@@ -14,8 +15,9 @@ import {ActionsEnums} from "../../enums/actions.enum";
 export class TodosPageComponent {
   title: string = 'todo list';
   todos: Observable<any>;
-  filters;
   addTodoSuccess$ : Observable<any>;
+  filters = [{id: "SHOW_ALL", title: "All"}, {id: "SHOW_COMPLETED", title: "Completed"}, {id: "SHOW_ACTIVE", title: "Active"}];
+  activeFilter : Observable<any>;
 
   constructor (private store: Store<any>, private todosEffects : TodosEffects, private todosService: TodosService) {
     this.store.dispatch(getTodos());
@@ -24,6 +26,7 @@ export class TodosPageComponent {
     this.todosService.toggleDoneTodo.subscribe((id) => {
       this.toggleDone(id)
     });
+    this.activeFilter = store.select("visibilityFilter").take(1);
   }
 
   addTodo(todo) {
@@ -34,5 +37,10 @@ export class TodosPageComponent {
   toggleDone(id) {
     this.store.dispatch(toggleDone(id));
     this.todos = this.store.select('todos');
+  }
+
+  changeFilter( filter ) {
+    this.store.dispatch(setVisibilityFilter(filter));
+    this.store.dispatch(getTodos());
   }
 }

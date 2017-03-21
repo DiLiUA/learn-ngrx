@@ -1,1 +1,6 @@
-<app-todos-page></app-todos-page>
+<nav>
+  <a routerLink="/home" routerLinkActive="active">{{'home' | uppercase}}</a>
+  <a routerLink="/todos" routerLinkActive="active">{{'Todos' | uppercase}}</a>
+</nav>
+
+<router-outlet></router-outlet>

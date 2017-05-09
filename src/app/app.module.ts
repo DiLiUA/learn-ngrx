@@ -1,42 +1,25 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-import {Routes, RouterModule} from '@angular/router';
-import {ReactiveFormsModule} from "../../node_modules/@angular/forms/src/form_providers";
-import {StoreModule} from "../../node_modules/@ngrx/store/src/ng2";
-import {StoreDevtoolsModule} from "../../node_modules/@ngrx/store-devtools/src/instrument";
-import {EffectsModule} from "../../node_modules/@ngrx/effects/src/effects.module";
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { EffectsModule } from '@ngrx/effects';
 
 import { AppComponent } from './app.component';
-import {HomeComponent} from "./home/home.component";
-import {TodosPageComponent} from "./todos-page/todos-page.component";
-import { TodoComponent } from './todo/todo.component';
-import {TodosComponent} from "./todos/todos.component";
-import {AddTodoComponent} from "./add-todo/add-todo.component";
-import {FiltersComponent} from "./filters/filters.component";
-
-import {todos} from "../reducers/todo.reducers";
-import {visibilityFilter} from "../reducers/visibility-flter.reducer";
-import {TodosService} from "../servises/todos.servise";
-import {TodosEffects} from "../effects/todos.effects";
-
-
-const appRoutes: Routes = [
-  { path: '',
-    redirectTo: 'home',
-    pathMatch: 'full'
-  },
-  { path: 'home', component: HomeComponent },
-  { path: 'todos', component: TodosPageComponent },
-];
+import { TodosPageComponent } from './components/todos-page/todos-page.component';
+import { TodosComponent } from './components/todos/todos.component';
+import { AddTodoComponent } from './components/add-todo/add-todo.component';
+import { FiltersComponent } from './components/filters/filters.component';
+import { TodosService } from './servises/todos.servise';
+import { TodosEffects } from './effects/todos.effects';
+import { TodoActions } from './actions/todo.actions';
+import { reducer } from './reducers/index.reducer';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,
     TodosPageComponent,
-    TodoComponent,
     TodosComponent,
     AddTodoComponent,
     FiltersComponent
@@ -46,14 +29,17 @@ const appRoutes: Routes = [
     FormsModule,
     ReactiveFormsModule,
     HttpModule,
-    RouterModule.forRoot(appRoutes),
-    StoreModule.provideStore({todos, visibilityFilter}),
+    StoreModule.provideStore(reducer),
     StoreDevtoolsModule.instrumentStore({
-      maxAge: 5,
+      maxAge: 5
     }),
-    EffectsModule.run(TodosEffects),
+    EffectsModule.run(TodosEffects)
   ],
-  providers: [TodosService],
+  providers: [
+    TodosService,
+    TodoActions
+  ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

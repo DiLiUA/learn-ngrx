@@ -8,7 +8,7 @@ describe('learn-ngrx App', () => {
   });
 
   it('should display message saying app works', () => {
-    page.navigateTo();
+    // page.navigateTo();
     expect(page.getParagraphText()).toEqual('app works!');
   });
 });
